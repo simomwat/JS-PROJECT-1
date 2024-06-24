@@ -26,6 +26,10 @@ main {
   display: flex;
 }
 
+.flex2 {
+  display: flex;
+  gap: 10px;
+}
 .flex--space-between {
   justify-content: space-between;
 }
@@ -65,6 +69,19 @@ h2 {
   color: var(--success);
 }
 
+.delete-background-color {
+  background-color: red;
+  color: white;
+}
+
+.edit-background-color {
+  background-color: orange;
+  color: white;
+}
+
+.currItem {
+  font-size: 20px;
+}
 /* This class can be used when the budget value is 0 
 .budget__state--warning{
     color: var(--warning)

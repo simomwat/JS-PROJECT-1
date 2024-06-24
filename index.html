@@ -21,7 +21,7 @@
         <div class="app__logo"><img src="./budget.png" /></div>
         <div id="budgetState" class="budget__state budget__state--success">
           <p id="balanceStatus" class="text--center">
-            You can still spend <span id="totalBalance">0</span> PLN
+            <span id="totalBalance"></span>
           </p>
         </div>
       </header>
@@ -51,6 +51,8 @@
               value="Add"
               class="budget__list__form__input__button"
             />
+
+            <input type="button" value="Update" class="updateButton" />
           </form>
           <ul id="incomesList" class="budget__list">
             <!-- A SAMPLE BUDGET LIST INCOME ITEM
@@ -97,6 +99,12 @@
               type="submit"
               value="Add"
               class="budget__list__form__input__button"
+            />
+            <input
+              id="updateButton"
+              type="button"
+              value="Update"
+              class="updateButton"
             />
           </form>
           <ul id="expensesList" class="budget__list">
