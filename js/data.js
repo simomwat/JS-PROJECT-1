@@ -21,7 +21,7 @@ const addExpenses = (name, amount) => {
   expenses.push({
     name,
     amount: Number(amount),
-    id: Math.random(),
+    id: Math.random().toString(),
   });
 };
 
@@ -45,13 +45,14 @@ const updateExpenses = (newName, newAmount, expenseId) => {
     /*expense.id === expenseId
       ? { ...expense, name: newName, amount: newAmount }
       : expense*/
-    if (expense.id === expenseId) {
+    if (expense.id.toString() === expenseId.toString()) {
       console.log(`Updating expense with ID: ${expense.id}`);
       console.log(`Old Name: ${expense.name}, New Name: ${newName}`);
       console.log(`Old Amount: ${expense.amount}, New Amount: ${newAmount}`);
-      //return { ...expense, name: newName, amount: newAmount };
-      expense.name = newName;
-      expense.amount = newAmount;
+      return { ...expense, name: newName, amount: newAmount };
+
+      //expense.name = newName;
+      //expense.amount = newAmount;
     }
     return expense;
   });

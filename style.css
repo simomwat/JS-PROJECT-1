@@ -166,6 +166,20 @@ h2 {
   }
 }
 
+.edit-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  background-color: rgb(209, 202, 202);
+}
+
 /* A SAMPLE STYLING OF BUDGET LIST ITEM
 
 .budget__list__item{

@@ -66,9 +66,9 @@ const showExpensesList = () => {
     const item = document.createElement("Span");
     const editButton = document.createElement("button");
     const deleteButton = document.createElement("button");
-    const itemID = `${expense.id}`;
-    item.textContent = itemID + `: ${expense.name}: ${expense.amount} PLN`;
-    //item.textContent = `${expense.id}: ${expense.name}: ${expense.amount} PLN`;
+    //const itemID = `${expense.id}`;
+    //item.textContent = itemID + `: ${expense.name}: ${expense.amount} PLN`;
+    item.textContent = `${expense.id}: ${expense.name}: ${expense.amount} PLN`;
 
     editButton.textContent = "edit";
     deleteButton.textContent = "delete";
@@ -101,8 +101,16 @@ const showExpensesList = () => {
       //expensesList.parentNode.removeChild(expensesList);
     });
 
+    //editButton.addEventListener("click", function () {
+    //   const li = document.querySelector(".currItem");
+    //const item = document.querySelector(".currItem");
+    //const editButton = document.querySelector(".currItem");
+    //const deleteButton = document.querySelector(".currItem");
+    // Value from expenses list item 'x', store that in a backup var, allow change to new value
+    // if empty revert to old otherwise set value to newexpenseValue
+    // console.log("item" + item.textContent);
+
     editButton.addEventListener("click", function () {
-        
       const li = document.querySelector(".currItem");
       //const item = document.querySelector(".currItem");
       //const editButton = document.querySelector(".currItem");
@@ -111,8 +119,34 @@ const showExpensesList = () => {
       // if empty revert to old otherwise set value to newexpenseValue
       console.log(item.textContent);
 
-      document.getElementById("expenseTitle").value = `${expense.name}`;
-      document.getElementById("expenseValue").value = `${expense.amount}`;
+      /* ===============================================*/
+
+      const modal = document.createElement("div");
+      modal.classList = "edit-modal";
+      const titleInput = document.createElement("input");
+      titleInput.type = "text";
+      titleInput.value = expense.name;
+      const amountInput = document.createElement("input");
+      amountInput.type = "number";
+      amountInput.value = expense.amount;
+
+      const saveChangesButton = document.createElement("button");
+      saveChangesButton.textContent = "Save";
+
+      modal.appendChild(titleInput);
+      modal.appendChild(amountInput);
+      modal.appendChild(saveChangesButton);
+
+      saveChangesButton.addEventListener("click", () => {
+        updateExpenses(titleInput.value, amountInput.value, expense.id);
+        document.body.removeChild(modal);
+      });
+      document.body.appendChild(modal);
+
+      /* ===============================================*/
+
+      //document.getElementById("expenseTitle").value = `${expense.name}`;
+      // document.getElementById("expenseValue").value = `${expense.amount}`;
     });
   });
 };
