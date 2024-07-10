@@ -9,7 +9,12 @@ import {
   balanceStatus,
 } from "./elements.js";
 
-import { getIncomes, getExpenses } from "./data.js";
+import {
+  getIncomes,
+  getExpenses,
+  updateExpenses,
+  deleteExpenses,
+} from "./data.js";
 
 const getTotalIncomes = () => {
   const total = getIncomes().reduce((acc, cur) => {
@@ -90,63 +95,55 @@ const showExpensesList = () => {
     li.classList.add("flex2");
     expensesList.appendChild(li);
 
+    /*================Dev Delete======================================*/
+
     deleteButton.addEventListener("click", function () {
       const li = document.querySelector(".currItem");
-      //const item = document.querySelector(".currItem");
-      //const editButton = document.querySelector(".currItem");
-      //const deleteButton = document.querySelector(".currItem");
-
+      deleteExpenses();
       expensesList.removeChild(li);
-
-      //expensesList.parentNode.removeChild(expensesList);
     });
-
-    //editButton.addEventListener("click", function () {
-    //   const li = document.querySelector(".currItem");
-    //const item = document.querySelector(".currItem");
-    //const editButton = document.querySelector(".currItem");
-    //const deleteButton = document.querySelector(".currItem");
-    // Value from expenses list item 'x', store that in a backup var, allow change to new value
-    // if empty revert to old otherwise set value to newexpenseValue
-    // console.log("item" + item.textContent);
+    /*================Dev Delete======================================*/
 
     editButton.addEventListener("click", function () {
       const li = document.querySelector(".currItem");
-      //const item = document.querySelector(".currItem");
-      //const editButton = document.querySelector(".currItem");
-      //const deleteButton = document.querySelector(".currItem");
-      // Value from expenses list item 'x', store that in a backup var, allow change to new value
-      // if empty revert to old otherwise set value to newexpenseValue
-      console.log(item.textContent);
-
-      /* ===============================================*/
 
       const modal = document.createElement("div");
       modal.classList = "edit-modal";
+      const label = document.createElement("label");
+      label.classList.add("label");
+      label.textContent = "Edit Expense";
       const titleInput = document.createElement("input");
+      titleInput.classList.add("tittleInput");
       titleInput.type = "text";
       titleInput.value = expense.name;
       const amountInput = document.createElement("input");
+      amountInput.classList.add("amountInput");
       amountInput.type = "number";
       amountInput.value = expense.amount;
 
+      const closeButton = document.createElement("button");
+      closeButton.classList.add("closeButton");
+      closeButton.textContent = "Cancel";
+
       const saveChangesButton = document.createElement("button");
+      saveChangesButton.classList.add("saveButton");
       saveChangesButton.textContent = "Save";
 
+      modal.appendChild(label);
       modal.appendChild(titleInput);
       modal.appendChild(amountInput);
       modal.appendChild(saveChangesButton);
+      modal.appendChild(closeButton);
+
+      closeButton.addEventListener("click", () => {
+        document.body.removeChild(modal);
+      });
 
       saveChangesButton.addEventListener("click", () => {
         updateExpenses(titleInput.value, amountInput.value, expense.id);
         document.body.removeChild(modal);
       });
       document.body.appendChild(modal);
-
-      /* ===============================================*/
-
-      //document.getElementById("expenseTitle").value = `${expense.name}`;
-      // document.getElementById("expenseValue").value = `${expense.amount}`;
     });
   });
 };

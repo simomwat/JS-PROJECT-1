@@ -1,3 +1,9 @@
+import {
+  showExpensesList,
+  showTotalBalance,
+  showTotalExpenses,
+} from "./income-helpers.js";
+
 const incomes = [];
 let expenses = [];
 
@@ -45,15 +51,16 @@ const updateExpenses = (newName, newAmount, expenseId) => {
     /*expense.id === expenseId
       ? { ...expense, name: newName, amount: newAmount }
       : expense*/
-    if (expense.id.toString() === expenseId.toString()) {
+    if (expense.id === expenseId) {
       console.log(`Updating expense with ID: ${expense.id}`);
       console.log(`Old Name: ${expense.name}, New Name: ${newName}`);
       console.log(`Old Amount: ${expense.amount}, New Amount: ${newAmount}`);
-      return { ...expense, name: newName, amount: newAmount };
+      return { ...expense, name: newName, amount: Number(newAmount) };
 
       //expense.name = newName;
       //expense.amount = newAmount;
     }
+
     return expense;
   });
 
@@ -65,6 +72,35 @@ const updateExpenses = (newName, newAmount, expenseId) => {
   expenses = newExpenses;
   // Debug: Log the final state of expenses
   console.log("Final Updated Expenses:", expenses);
+
+  showExpensesList();
+  showTotalExpenses();
+  showTotalBalance();
 };
 
-export { getIncomes, addIncome, getExpenses, addExpenses, updateExpenses };
+/*================Dev Delete======================================*/
+
+const deleteExpenses = (expenseId) => {
+  const modifiedExpenses = expenses.find((expense) => {
+    if (expense.id === expenseId) {
+      console.log(`Deleting expense with ID: ${expense.id}`);
+      expense.remove;
+    }
+
+    return expense;
+  });
+};
+
+//showExpensesList();
+//showTotalExpenses();
+// showTotalBalance();
+//};
+
+export {
+  getIncomes,
+  addIncome,
+  getExpenses,
+  addExpenses,
+  updateExpenses,
+  deleteExpenses,
+};
