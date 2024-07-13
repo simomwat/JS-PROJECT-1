@@ -1,10 +1,12 @@
 import {
+  showIncomesList,
   showExpensesList,
   showTotalBalance,
+  showTotalIncomes,
   showTotalExpenses,
 } from "./income-helpers.js";
 
-const incomes = [];
+let incomes = [];
 let expenses = [];
 
 const getIncomes = () => {
@@ -31,70 +33,59 @@ const addExpenses = (name, amount) => {
   });
 };
 
-/*const updateExpenses = (id, name, amount) => {
-  expenses.push({
-    name,
-    amount: Number(amount),
-    id,
-  });
-};*/
+const renderIncomes = () => {
+  showIncomesList();
+  showTotalIncomes();
+  showTotalBalance();
+};
 
-const updateExpenses = (newName, newAmount, expenseId) => {
-  // Debug: Log the initial state of expenses
-  console.log("Initial Expenses:", expenses);
-
-  // Use map to create a new array with the updated expense
-  const newExpenses = expenses.map((expense) => {
-    // Debug: Log each expense being processed
-    console.log(`Processing expense with ID: ${expense.id}`);
-    console.log(`Processing new expense with ID: ${expenseId}`);
-    /*expense.id === expenseId
-      ? { ...expense, name: newName, amount: newAmount }
-      : expense*/
-    if (expense.id === expenseId) {
-      console.log(`Updating expense with ID: ${expense.id}`);
-      console.log(`Old Name: ${expense.name}, New Name: ${newName}`);
-      console.log(`Old Amount: ${expense.amount}, New Amount: ${newAmount}`);
-      return { ...expense, name: newName, amount: Number(newAmount) };
-
-      //expense.name = newName;
-      //expense.amount = newAmount;
+const updateIncomes = (newName, newAmount, incomeId) => {
+  const newIncomes = incomes.map((income) => {
+    if (income.id === incomeId) {
+      return { ...income, name: newName, amount: Number(newAmount) };
     }
 
-    return expense;
+    return income;
   });
 
-  console.log("New Amount:", newAmount);
-  console.log("New Name:", newName);
-  console.log("Before Update:", expenses);
-  console.log("After Update:", newExpenses);
+  incomes = newIncomes;
 
-  expenses = newExpenses;
-  // Debug: Log the final state of expenses
-  console.log("Final Updated Expenses:", expenses);
+  renderIncomes();
+};
 
+const deleteIncomes = (incomeId) => {
+  const indexToRemove = incomes.findIndex((income) => income.id === incomeId);
+  incomes.splice(indexToRemove, 1);
+  renderIncomes();
+};
+
+const renderExpenses = () => {
   showExpensesList();
   showTotalExpenses();
   showTotalBalance();
 };
 
-/*================Dev Delete======================================*/
-
-const deleteExpenses = (expenseId) => {
-  const modifiedExpenses = expenses.find((expense) => {
+const updateExpenses = (newName, newAmount, expenseId) => {
+  const newExpenses = expenses.map((expense) => {
     if (expense.id === expenseId) {
-      console.log(`Deleting expense with ID: ${expense.id}`);
-      expense.remove;
+      return { ...expense, name: newName, amount: Number(newAmount) };
     }
 
     return expense;
   });
+
+  expenses = newExpenses;
+
+  renderExpenses();
 };
 
-//showExpensesList();
-//showTotalExpenses();
-// showTotalBalance();
-//};
+const deleteExpenses = (expenseId) => {
+  const indexToRemove = expenses.findIndex(
+    (expense) => expense.id === expenseId
+  );
+  expenses.splice(indexToRemove, 1);
+  renderExpenses();
+};
 
 export {
   getIncomes,
@@ -102,5 +93,7 @@ export {
   getExpenses,
   addExpenses,
   updateExpenses,
+  updateIncomes,
   deleteExpenses,
+  deleteIncomes,
 };

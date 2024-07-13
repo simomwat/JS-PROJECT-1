@@ -38,25 +38,3 @@ expensesForm.addEventListener("submit", (event) => {
   showTotalExpenses();
   showTotalBalance();
 });
-
-//const updateButton = document.getElementById("updateButton");
-//updateButton.addEventListener("button", (event) => {
-document.getElementById("updateButton").addEventListener("click", (event) => {
-  event.preventDefault();
-  const newName = document.getElementById("expenseTitle").value;
-  const newAmount = document.getElementById("expenseValue").value;
-  const expenseId = document
-    .querySelector("#expensesList > li")
-    .getAttribute("data-expense-id");
-  //const name = event.target.expensesName.value;
-  //const amount = event.target.expenseAmount.value;
-  //const id = event.target.expense.id;
-  //addExpenses(name, amount);
-  updateExpenses(newName, newAmount, expenseId);
-
-  //event.target.reset();
-  document.getElementById("expensesForm").reset();
-  showExpensesList();
-  showTotalExpenses();
-  showTotalBalance();
-});

@@ -14,6 +14,8 @@ import {
   getExpenses,
   updateExpenses,
   deleteExpenses,
+  updateIncomes,
+  deleteIncomes,
 } from "./data.js";
 
 const getTotalIncomes = () => {
@@ -25,28 +27,93 @@ const getTotalIncomes = () => {
 
 const showIncomesList = () => {
   incomesList.innerHTML = "";
-
   getIncomes().forEach((income) => {
-    /*
-      <li>
-        <span> salary: 3000 EUR</span>
-        <button>Edit</button>
-        <button>Remove</button>
-      </li>
-    */
+    const li = document.createElement("li");
+    const item = document.createElement("Span");
+    const editButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
+    const liDiv = document.createElement("div");
+    const contentDiv = document.createElement("div");
+    const buttonsDiv = document.createElement("div");
 
-    const item = document.createElement("li");
-    item.textContent = `${income.name}: ${income.amount} PLN`;
+    item.textContent = ` ${income.name}: ${income.amount} PLN`;
 
-    incomesList.appendChild(item);
+    editButton.textContent = "edit";
+    deleteButton.textContent = "delete";
+
+    deleteButton.classList.add("delete-background-color");
+    editButton.classList.add("edit-background-color");
+
+    buttonsDiv.appendChild(editButton);
+    buttonsDiv.appendChild(deleteButton);
+    buttonsDiv.classList.add("buttonsDiv");
+
+    li.classList.add("currItem");
+
+    li.setAttribute("data-income-id", `${income.id}`);
+
+    contentDiv.classList.add("contentDiv");
+    contentDiv.appendChild(item);
+
+    li.appendChild(contentDiv);
+    li.appendChild(buttonsDiv);
+
+    liDiv.appendChild(li);
+    liDiv.classList.add("liDiv");
+    incomesList.appendChild(liDiv);
+
+    deleteButton.addEventListener("click", function () {
+      const li = document.querySelector(".currItem");
+      deleteIncomes(income.id);
+    });
+
+    editButton.addEventListener("click", function () {
+      const li = document.querySelector(".currItem");
+
+      const modal = document.createElement("div");
+      modal.classList = "edit-modal";
+      const label = document.createElement("label");
+      label.classList.add("label");
+      label.textContent = "Edit Income";
+      const titleInput = document.createElement("input");
+      titleInput.classList.add("tittleInput");
+      titleInput.type = "text";
+      titleInput.value = income.name;
+      const amountInput = document.createElement("input");
+      amountInput.classList.add("amountInput");
+      amountInput.type = "number";
+      amountInput.value = income.amount;
+
+      const closeButton = document.createElement("button");
+      closeButton.classList.add("closeButton");
+      closeButton.textContent = "Cancel";
+
+      const saveChangesButton = document.createElement("button");
+      saveChangesButton.classList.add("saveButton");
+      saveChangesButton.textContent = "Save";
+
+      modal.appendChild(label);
+      modal.appendChild(titleInput);
+      modal.appendChild(amountInput);
+      modal.appendChild(saveChangesButton);
+      modal.appendChild(closeButton);
+
+      closeButton.addEventListener("click", () => {
+        document.body.removeChild(modal);
+      });
+
+      saveChangesButton.addEventListener("click", () => {
+        updateIncomes(titleInput.value, amountInput.value, income.id);
+        document.body.removeChild(modal);
+      });
+      document.body.appendChild(modal);
+    });
   });
 };
 
 const showTotalIncomes = () => {
   totalIncomes.textContent = getTotalIncomes();
 };
-
-/*====================================================*/
 
 const getTotalExpenses = () => {
   const totalExp = getExpenses().reduce((acc, cur) => {
@@ -59,50 +126,44 @@ const showExpensesList = () => {
   expensesList.innerHTML = "";
 
   getExpenses().forEach((expense) => {
-    /*
-        <li>
-          <span> salary: 3000 EUR</span>
-          <button>Edit</button>
-          <button>Remove</button>
-        </li>
-      */
-
     const li = document.createElement("li");
     const item = document.createElement("Span");
     const editButton = document.createElement("button");
     const deleteButton = document.createElement("button");
-    //const itemID = `${expense.id}`;
-    //item.textContent = itemID + `: ${expense.name}: ${expense.amount} PLN`;
-    item.textContent = `${expense.id}: ${expense.name}: ${expense.amount} PLN`;
+    const liDiv = document.createElement("div");
+    const contentDiv = document.createElement("div");
+    const buttonsDiv = document.createElement("div");
+
+    item.textContent = ` ${expense.name}: ${expense.amount} PLN`;
 
     editButton.textContent = "edit";
     deleteButton.textContent = "delete";
 
     deleteButton.classList.add("delete-background-color");
     editButton.classList.add("edit-background-color");
-    //item.classList.add("currItem");
-    //editButton.classList.add("currItem");
-    // deleteButton.classList.add("currItem");
+
+    buttonsDiv.appendChild(editButton);
+    buttonsDiv.appendChild(deleteButton);
+    buttonsDiv.classList.add("buttonsDiv");
 
     li.classList.add("currItem");
-    //li.id = `${expense.id}`;
+
     li.setAttribute("data-expense-id", `${expense.id}`);
 
-    li.appendChild(item);
-    li.appendChild(editButton);
-    li.appendChild(deleteButton);
+    contentDiv.classList.add("contentDiv");
+    contentDiv.appendChild(item);
 
-    li.classList.add("flex2");
-    expensesList.appendChild(li);
+    li.appendChild(contentDiv);
+    li.appendChild(buttonsDiv);
 
-    /*================Dev Delete======================================*/
+    liDiv.appendChild(li);
+    liDiv.classList.add("liDiv");
+    expensesList.appendChild(liDiv);
 
     deleteButton.addEventListener("click", function () {
       const li = document.querySelector(".currItem");
-      deleteExpenses();
-      expensesList.removeChild(li);
+      deleteExpenses(expense.id);
     });
-    /*================Dev Delete======================================*/
 
     editButton.addEventListener("click", function () {
       const li = document.querySelector(".currItem");

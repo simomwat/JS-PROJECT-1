@@ -26,10 +26,28 @@ main {
   display: flex;
 }
 
-.flex2 {
+.liDiv {
   display: flex;
+  flex-direction: row;
+
   gap: 10px;
+  width: 440px;
 }
+
+.contentDiv {
+  display: flex;
+  width: 340px;
+  background-color: gray;
+  float: left;
+}
+
+.buttonsDiv {
+  display: flex;
+  width: 100px;
+  background-color: gray;
+  gap: 5px;
+}
+
 .flex--space-between {
   justify-content: space-between;
 }
@@ -82,15 +100,6 @@ h2 {
 .currItem {
   font-size: 20px;
 }
-/* This class can be used when the budget value is 0 
-.budget__state--warning{
-    color: var(--warning)
-} */
-
-/* This class can be used when the budget value is below 0
-.budget__state--danger{
-    color: var(--danger)
-} */
 
 .budget__list__wrapper {
   margin: 30px 0;
