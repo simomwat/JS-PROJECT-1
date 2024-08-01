@@ -18,6 +18,31 @@ import {
   deleteIncomes,
 } from "./data.js";
 
+const incomeText = document.getElementById("incomeTitle");
+const incomeNumber = document.getElementById("incomeValue");
+const expenseText = document.getElementById("expenseTitle");
+const expenseNumber = document.getElementById("expenseValue");
+
+incomeText.classList.add(
+  "budget__list__form__input",
+  "budget__list__form__input--text"
+);
+
+incomeNumber.classList.add(
+  "budget__list__form__input",
+  "budget__list__form__input--number"
+);
+
+expenseText.classList.add(
+  "budget__list__form__input",
+  "budget__list__form__input--text"
+);
+
+expenseNumber.classList.add(
+  "budget__list__form__input",
+  "budget__list__form__input--number"
+);
+
 const getTotalIncomes = () => {
   const total = getIncomes().reduce((acc, cur) => {
     return acc + cur.amount;
@@ -103,6 +128,10 @@ const showIncomesList = () => {
       });
 
       saveChangesButton.addEventListener("click", () => {
+        if (titleInput.value == "" || amountInput.value == "") {
+          alert("Both fieldes must be filled out");
+          return false;
+        }
         updateIncomes(titleInput.value, amountInput.value, income.id);
         document.body.removeChild(modal);
       });
@@ -201,6 +230,10 @@ const showExpensesList = () => {
       });
 
       saveChangesButton.addEventListener("click", () => {
+        if (titleInput.value == "" || amountInput.value == "") {
+          alert("Both fieldes must be filled out");
+          return false;
+        }
         updateExpenses(titleInput.value, amountInput.value, expense.id);
         document.body.removeChild(modal);
       });

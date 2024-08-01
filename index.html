@@ -18,7 +18,7 @@
     <main class="container">
       <header>
         <h1 class="text--center">Home budget</h1>
-        <div class="app__logo"><img src="./budget.png" /></div>
+        <div class="app__logo"><img src="./budget.png" alt="Budget" /></div>
         <div id="budgetState" class="budget__state budget__state--success">
           <p id="balanceStatus" class="text--center">
             <span id="totalBalance"></span>
@@ -29,12 +29,7 @@
         <div class="budget__incomes">
           <h2 class="budget__list__header incomes__header">Incomes</h2>
           <form id="incomesForm" class="budget__list__form">
-            <input
-              type="text"
-              id="incomeTitle"
-              name="incomeName"
-              class="budget__list__form__input budget__list__form__input--text"
-            />
+            <input type="text" id="incomeTitle" name="incomeName" />
             <input
               type="number"
               step="0.01"
@@ -44,7 +39,6 @@
               placeholder="income amount"
               name="incomeAmount"
               id="incomeValue"
-              class="budget__list__form__input budget__list__form__input--number"
             />
             <input
               type="submit"
@@ -60,12 +54,7 @@
         <div class="budget__expenses">
           <h2 class="budget__list__header expenses__header">Expenses</h2>
           <form id="expensesForm" class="budget__list__form">
-            <input
-              type="text"
-              id="expenseTitle"
-              name="expensesName"
-              class="budget__list__form__input budget__list__form__input--text"
-            />
+            <input type="text" id="expenseTitle" name="expensesName" />
             <input
               type="number"
               id="expenseValue"
@@ -75,7 +64,6 @@
               required
               placeholder="expense amount"
               name="expenseAmount"
-              class="budget__list__form__input budget__list__form__input--number"
             />
             <input
               type="submit"
