@@ -6,8 +6,8 @@ import {
   showTotalExpenses,
 } from "./income-helpers.js";
 
-let incomes = [];
-let expenses = [];
+const incomes = [];
+const expenses = [];
 
 const getIncomes = () => {
   return incomes;
@@ -40,15 +40,12 @@ const renderIncomes = () => {
 };
 
 const updateIncomes = (newName, newAmount, incomeId) => {
-  const newIncomes = incomes.map((income) => {
+  incomes.find((income) => {
     if (income.id === incomeId) {
-      return { ...income, name: newName, amount: Number(newAmount) };
+      income.name = newName;
+      income.amount = Number(newAmount);
     }
-
-    return income;
   });
-
-  incomes = newIncomes;
 
   renderIncomes();
 };
@@ -66,15 +63,12 @@ const renderExpenses = () => {
 };
 
 const updateExpenses = (newName, newAmount, expenseId) => {
-  const newExpenses = expenses.map((expense) => {
+  expenses.find((expense) => {
     if (expense.id === expenseId) {
-      return { ...expense, name: newName, amount: Number(newAmount) };
+      expense.name = newName;
+      expense.amount = Number(newAmount);
     }
-
-    return expense;
   });
-
-  expenses = newExpenses;
 
   renderExpenses();
 };

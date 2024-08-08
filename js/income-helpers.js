@@ -93,9 +93,7 @@ const showIncomesList = () => {
     });
 
     editButton.addEventListener("click", function () {
-      const li = document.querySelector(".currItem");
-
-      const modal = document.createElement("div");
+      const modal = document.createElement("form");
       modal.classList = "edit-modal";
       const label = document.createElement("label");
       label.classList.add("label");
@@ -107,6 +105,8 @@ const showIncomesList = () => {
       const amountInput = document.createElement("input");
       amountInput.classList.add("amountInput");
       amountInput.type = "number";
+      amountInput.step = "0.01";
+      amountInput.min = "0.01";
       amountInput.value = income.amount;
 
       const closeButton = document.createElement("button");
@@ -114,6 +114,7 @@ const showIncomesList = () => {
       closeButton.textContent = "Cancel";
 
       const saveChangesButton = document.createElement("button");
+      saveChangesButton.type = "submit";
       saveChangesButton.classList.add("saveButton");
       saveChangesButton.textContent = "Save";
 
@@ -123,11 +124,13 @@ const showIncomesList = () => {
       modal.appendChild(saveChangesButton);
       modal.appendChild(closeButton);
 
-      closeButton.addEventListener("click", () => {
+      closeButton.addEventListener("click", (event) => {
+        event.preventDefault();
         document.body.removeChild(modal);
       });
 
-      saveChangesButton.addEventListener("click", () => {
+      modal.addEventListener("submit", (event) => {
+        event.preventDefault();
         if (titleInput.value == "" || amountInput.value == "") {
           alert("Both fieldes must be filled out");
           return false;
@@ -195,9 +198,7 @@ const showExpensesList = () => {
     });
 
     editButton.addEventListener("click", function () {
-      const li = document.querySelector(".currItem");
-
-      const modal = document.createElement("div");
+      const modal = document.createElement("form");
       modal.classList = "edit-modal";
       const label = document.createElement("label");
       label.classList.add("label");
@@ -209,6 +210,9 @@ const showExpensesList = () => {
       const amountInput = document.createElement("input");
       amountInput.classList.add("amountInput");
       amountInput.type = "number";
+      amountInput.step = "0.01";
+      amountInput.min = "0.01";
+
       amountInput.value = expense.amount;
 
       const closeButton = document.createElement("button");
@@ -216,6 +220,8 @@ const showExpensesList = () => {
       closeButton.textContent = "Cancel";
 
       const saveChangesButton = document.createElement("button");
+      saveChangesButton.type = "submit";
+
       saveChangesButton.classList.add("saveButton");
       saveChangesButton.textContent = "Save";
 
@@ -225,11 +231,13 @@ const showExpensesList = () => {
       modal.appendChild(saveChangesButton);
       modal.appendChild(closeButton);
 
-      closeButton.addEventListener("click", () => {
+      closeButton.addEventListener("click", (event) => {
+        event.preventDefault();
         document.body.removeChild(modal);
       });
 
-      saveChangesButton.addEventListener("click", () => {
+      modal.addEventListener("submit", (event) => {
+        event.preventDefault();
         if (titleInput.value == "" || amountInput.value == "") {
           alert("Both fieldes must be filled out");
           return false;
